@@ -1,0 +1,638 @@
+
+
+\documentclass[12pt,a4paper]{article}
+
+\input{myPackages.tex}
+
+\input{myCommands.tex}
+
+\begin{document}
+	\loadgeometry{1}
+	\begin{center}
+		\Huge \textbf{AIDE-MÉMOIRE} \\
+		\vspace{0.7cm}
+		\LARGE Hamid Mahamat Adoum\normalsize
+	\end{center}
+	\section*{Complément d'analyse}
+	\section{Notions de bases de la topologie}
+	\subsection{Norme sur un espace vectoriel}
+	\begin{defini}[Norme sur un $\ens{K}$-evn]
+	On appelle \textbf{norme}, toute application (qu'on note le plus souvent $ \norm{\cdot}$) définie sur un $\mathbb{K}$-espace vectoriel $E$ à valeur réelle vérifiant les 4 propriétés suivantes:
+	\begin{align}
+		&\bullet \text{ la positivité: }  \qquad \norm{x}\geq 0 \quad\forall x \in E\\
+		&\bullet \text{ l'homogénéité: } \quad\norm{\alpha x}=\abs{\alpha}\norm{x} \quad\forall x \in E,\; \forall\alpha\in \mathbb{K}\\ 
+		&\bullet \text{ la séparation: } \qquad \norm{x}=0\Longleftrightarrow x=0_E \\
+		&\bullet \text{ l'inégalité triangulaire: } \qquad\norm{x+y}\leq\norm{x}+\norm{y} \quad\forall x, y \in E
+	\end{align}
+	\end{defini}
+	$E$ muni d'une norme est appelé espace vectoriel normé. On le note $\left(E,\norm{\cdot}\right).$ \\ 
+	\underline{Quelques remarques}: 
+	\begin{enumerate}
+		
+		\item Il y'a des relations assez importantes que l'on déduit des propriétés d'une norme. Par exemple, \textbf{la deuxième inégalité triangulaire}:
+		\begin{equation}
+			\abs{\norm{x}-\norm{y}}\leq \norm{x-y}
+		\end{equation} 
+		Il s'agit de l'inégalité qui justifie la lipschitzianité de toute norme sur un $\ens{K}$-ev.\\
+		\item Une deuxième inégalité importante est \textbf{la généralisation de l'inégalité triangulaire} sur toute famille au plus dénombrable de vecteurs:
+		\begin{equation}
+			\norm{\grandm\somme{k\in J}{} x_k}\leq \somme{k \in J}{} \norm{x_k} \qquad \forall J\subseteq\ens{N}, \;  x_k\in E
+		\end{equation}
+		\item Enfin de tout espace vectoriel préhilbertien\footnote{espace vectoriel muni d'un produit scalaire} réel $\left(E,\prdtscal{.}{.}\right)$ on y induit une norme appelée \textbf{norme euclidenne} définie par:
+		$$\norm{x}:=\sqrt{\prdtscal{x}{x}}. $$ 
+		Dans les espaces préhilbertiens, on a la fameuse \textbf{inégalité de Cauchy-Schwarz}
+		\begin{displaymath}
+			\forall x,y \in E \qquad \abs{\prdtscal{x}{y}}\leq\norm{x}\norm{y}
+		\end{displaymath}\\
+		\underline{Preuve} (pour les evn de dimensions finies): Soient $x=\left(x_1,\dots, x_n\right) $ et $y=\left(y_1,\dots, y_n\right)$.
+		
+		\begin{align*}
+			\norm{x}^2\norm{y}^2-\abs{\prdtscal{x}{y}}^2 & =  \left(\somme{i=1}{n} x_i^2\right)\left(\somme{j=1}{n} y_j^2\right)-\left(\somme{i=1}{n}x_iy_i\right)^2\\
+			& =  \somme{i=1}{n}\somme{j=1}{n}x_i^2 y_j^2 -\somme{i=1}{n}x_i^2 y_i^2 -\somme{i\neq j}{} x_ix_jy_iy_j\\
+			& = \cancel{\somme{i=1}{n}x_i^2 y_i^2} +\somme{i\neq j}{}x_i^2 y_j^2 -\cancel{\somme{i=1}{n}x_i^2 y_i^2} -2\somme{i<j}{} x_ix_jy_iy_j\\
+			& = \somme{i<j}{}\left(x_i^2 y_j^2+x_j^2 y_i^2\right)-\somme{i<j}{} 2x_ix_jy_iy_j\\
+			& = \somme{i<j}{}\left(x_i y_j-x_j y_i\right)^2\geq 0 & \text{D'où le resultat}
+		\end{align*}
+		
+	\end{enumerate}
+	
+	\begin{defini}[Quelques normes classiques] 
+	Sur les ev de dimension finie et sur certains espaces vectoriels de dimension infinie en particulier, il y'a 3 normes dites classiques ou standards.\\
+	Sur $\ens{K}^n$ par exemple, on a pour tout $\Vecteur{x}:=(x_1,\dots,x_n) \in \ens{K}^n$:
+	\begin{equation*}
+		\norm{\Vecteur{x}}_1:=\somme{i=1}{n}\abs{x_i} \qquad
+		\norm{\Vecteur{x}}_2:=\sqrt{\somme{i=1}{n}\abs{x_i}^2} \qquad
+		\norm{\Vecteur{x}}_\infty:=\max\limits_{1\leq i\leq n}\abs{x_i}
+	\end{equation*}
+	Sur l'espace vectoriel des fonctions réelles ou complexes, continues définies sur un fermé borné de $\ens{R}$,
+	on a aussi $\forall f \in \mathcal{C}^0([a,b],\ens{K}) $ :
+	\begin{equation*}
+		\norm{f}_1=\Int{a}{b}{\abs{f(t)}}{t}\footnote{La norme de la convergence en moyenne} \qquad  
+		\norm{f}_2=\sqrt{\Int{a}{b}{\abs{f(t)}^2}{t}} \footnote{la norme de la convergence en moyenne quadratique ou norme euclidienne} \qquad
+		\norm{f}_\infty=\sup\limits_{t\in [a,b]} \abs{f(t)}\footnote{la norme de la convergence uniforme}
+	\end{equation*} 
+	Grâce à ces normes standards on sait définir des normes sur tous produits cartésiens finis \\
+	$\grandm E:=\prod\limits_{i=1}^{n} E_i=E_1\times\cdots\times E_n$ de $\mathbb{K}$-espaces vectoriels normés $\left(E_i,\norm{\cdot}_i\right)$\\
+	en posant pour $X=(x_1,\dots, x_n)\in E_1\times\cdots\times E_n $
+	\begin{equation*}
+		\norm{X}_1:=\somme{i=1}{n}\norm{x_i}_i \qquad
+		\norm{X}_2:=\sqrt{\somme{i=1}{n}\norm{x_i}^2_i} \qquad
+		\norm{X}_\infty:=\max\limits_{1\leq i\leq n}\norm{x_i}_i
+	\end{equation*}
+	\end{defini}
+
+
+	\begin{exo}
+	 Montrons que $\norm{\cdot}$ défini par 
+	$\norm{(x,y)}=\sup\limits_{t\in \ens{R}} \abs{\grandm\frac{x+ty}{1+t^2}}$
+	est une norme sur $\ens{R}^2$.\\
+	Pour tout $(x,y)\in \ens{R}^2$, la borne supérieure de la fonction $\grandm \left[ t\longmapsto\grandm \abs{\frac{x+ty}{1+t^2}} \right] $ existe et est positive car la fonction est positive et bornée(puisqu'elle est continue et admet de limite finie à l'infini).\\
+	Soit $\alpha \in \ens{R}$ on a: $$\norm{\alpha (x,y)}=\norm{(\alpha x, \alpha y)}=\sup\limits_{t\in \ens{R}}\abs{\grandm\frac{\alpha x+\alpha t y}{1+t^2}}=\sup\limits_{t\in \ens{R}}\abs{\grandm \alpha \frac{ x+t y}{1+t^2}}=\abs{\alpha}\sup\limits_{t\in \ens{R}}\abs{\grandm \frac{ x+t y}{1+t^2}}=\abs{\alpha} \norm{(x,y)} $$
+	\begin{eqnarray*}
+		\norm{(x,y)}=0 	&\Longleftrightarrow& \sup\limits_{t\in \ens{R}} \abs{\grandm\frac{x+ty}{1+t^2}}=0\\
+		&\Longleftrightarrow& \forall t \in \ens{R}\quad \abs{\grandm\frac{x+ty}{1+t^2}}=0\\
+		&\Longleftrightarrow& \forall t \in \ens{R}\quad x+ty=0\\
+		&\Longleftrightarrow& x=y=0 \text{ car la famille } (1,\text{id}_\ens{R}) \text{ est une famille libre de }  \mathcal{F}(\ens{R},\ens{R})
+	\end{eqnarray*}
+	Soit $(x',y')\in \ens{R}^2 $
+	\begin{equation*}
+		\begin{array}{rrcrl}
+			\norm{(x,y)+(x',y')}&=	&\norm{(x+x',y+y')}&=		&\sup\limits_{t\in \ens{R}}\abs{\grandm \frac{ x+x'+t(y+y') }{1+t^2}}\\
+			&	&				   &=		&\sup\limits_{t\in \ens{R}}\abs{\grandm \frac{ x+t y}{1+t^2}+\frac{ x'+t y'}{1+t^2}}\\
+			&	&				   &\leq	& \sup\limits_{t\in \ens{R}}\abs{\grandm \frac{ x+ty }{1+t^2}}+\sup\limits_{t\in \ens{R}}\abs{\grandm \frac{ x'+t y' }{1+t^2}}\\
+			\norm{(x,y)+(x',y')}&\leq& \norm{(x,y)}+\norm{(x',y')} 
+		\end{array}
+	\end{equation*}
+	\end{exo}
+	\begin{exo}[Laissé au lecteur/trice]
+		
+	  On définit l'ensemble $\ell ^2(\ens{R})$ qui est celui des suites réelles dites de carré sommable(ou intégrable).
+	$$\ell^2(\ens{R})=\ensemble{u:=(u_n)\in \ens{R}^{\ens{N}}}{\gesp\somme{n=0}{+\infty}\abs{u_n}^2\, \in \ens{R}} $$ 
+	\begin{enumerate}
+		\item Montrer que $\ell^2(\ens{R}) $ est un espace vectoriel sur $\ens{R}$
+		\item Montrer que l'application $\prdtscal{\cdot}{\cdot}$ définie par : $$\prdtscal{u}{v}=\somme{n=0}{+\infty} u_n v_n $$ est un produit scalaire sur $\ell^2(\ens{R})$
+		\item Justifier que $\ell^2(\ens{R})$ est normé puis en expliciter une norme.  
+	\end{enumerate}
+	\end{exo}
+	\subsection{Espace métrique}
+	Une structure plus primitive que celle de l'evn est la structure d'espace métrique.\\
+	On appelle \textbf{espace métrique}, tout ensemble $X$ muni d'une distance ou métrique $d$. On le note $\left(X, d\right)$.
+	\begin{defini}
+	 Une \textbf{distance sur un ensemble} $X$ est une application $d$ définie sur $X\times X$ à valeur réel vérifiant:
+	\begin{align}
+		&\bullet \text{ la positivité: }  \qquad d(x,y)\geq 0 \quad\forall x,y \in X\\
+		&\bullet \text{ la symétrie:   } \qquad d(x,y)=d(y,x) \quad\forall x,y \in X\\ 
+		&\bullet \text{ la séparation: } \qquad d(x,y)=0\Longleftrightarrow x=y \\
+		&\bullet \text{ l'inégalité triangulaire: } \qquad d(x,z)\leq d(x,y)+d(y,z) \quad\forall x, y,z \in X
+	\end{align}
+	\end{defini}
+	\underline{Remarque} : 
+	\begin{enumerate}
+		\item \textbf{Deuxième inégalité triangulaire:} 
+		\begin{equation}
+			\forall x,y,z \in X \qquad \abs{d(x,y)-d(y,z)}\leq d(x,z)
+		\end{equation}
+		\item Pour tous naturels $n$ et $p$ tels que $p>n$ on a:
+		\begin{equation}
+			d(x_n, x_p)\leq \somme{i=n}{p-1} d(x_i,x_{i+1})\qquad \text{avec les } x_i\in X
+		\end{equation}
+		\item De tout espace vectoriel normé $\left(E,\norm{\cdot} \right)$ on peut extraire une structure d'espace métrique en posant comme distance$$ d(x,y):=\norm{x-y}\qquad \forall (x,y) \in E^2  $$
+		\item Le produit cartésien $X:=\grandm\prod\limits_{i=1}^{n} X_i=X_1\times\cdots\times X_n$ des ensembles $X_i$ muni chacun d'une métrique $d_i$ est un espace métrique avec comme façons standards d'y définir une distance $d$ est la suivante :\\
+		$x=(x_1,\dots,x_n) $ et $y=(y_1,\dots,y_n) $
+		\[ d(x,y)=\max\limits_{i\in \llbracket 1,n \rrbracket  } d_i(x_i,y_i) \]
+		Ou  encore
+		\[ d(x,y)=\somme{i=1}{n} \lambda_i d_i(x_i,y_i)  \]
+		avec les $\lambda_i$ des réels strictement positifs quelconques.\\
+		Bref il y'a autant de façon de définir une distance que d'étoiles dans le ciel.\\
+	\end{enumerate}
+	 
+	 \begin{exo}
+	 $X$ est un ensemble quelconque.
+	\begin{equation*}
+		\begin{array}[]{rll}
+			\text{Soit }\quad d: X\times X &\longrightarrow \ens{R}\\
+			x &\longmapsto d(x,y)=\begin{cases}
+				1 & \text{si } x\neq y\\
+				0 & \text{si } x=y
+			\end{cases}
+		\end{array}
+	\end{equation*}
+	Montrons que l'application $\grandm d=\mathbbm{1}_{\lbrace x\neq y\rbrace} $ appelé aussi distance discrète est bien une distance sur $X$.
+	\begin{itemize}[label=$\bullet$]
+		\item $d$ est bien positive puisqu'elle ne prend que les valeurs $0$ et $1$.
+		\item Par définition $d(x,y)=0\Longleftrightarrow x=y$.
+		\item La symétrie est évidente.
+		\item Soit $x,y,z\in X$.
+		\begin{itemize}
+			\item Si $x\neq y\neq z$ alors $d(x,z)=d(x,y)=d(y,z)=1$ et on a $1\leq 2$ et l'inégalité triangulaire est vraie
+			\item Si $x= y= z$ l'inégalité triangulaire est trivialement vraie
+			\item Si $x=z$ et $x\neq y$ alors $y \neq z$ on a $d(x,y)=d(y,z)=1$ et $d(x,z)=0$ ce qui donne $0\leq 2$ et l'inégalité triangulaire est encore vraie.\\
+			Ainsi \[\forall x,y,z \in X \quad d(x,z)\leq d(x,y)+d(y,z) \]
+		\end{itemize}
+	\end{itemize}
+	\end{exo}
+
+	\subsubsection{Boule et Sphère}
+	Soient $\left(X,d\right)$ un espace métrique, $a$ un élément de $X$ et $r\in \ens{R}^*_{+}$  
+	\begin{itemize}[label=$\bullet$]
+		\item On appelle boule ouverte de centre $a$ et de rayon $r$, l'ensemble
+		\[\boule{a}{r} =\ensemble{x\in X}{d(x,a)<r} \]
+		\item On appelle boule fermée de centre $a$ et de rayon $r$, l'ensemble
+		\[\boulef{a}{r} =\ensemble{x\in X}{d(x,a)\leq r} \]
+		\item On appelle sphère de centre $a$ et de rayon $r$, l'ensemble
+		\[\sphere{a}{r} =\ensemble{x\in X}{d(x,a)=r} \]
+	\end{itemize}
+\newpage
+	Dans cette section, on va schématiser et étudier les boules et sphères unités des différentes métriques et normes qu'on vient de rencontrer. 
+	\begin{figure}[!h]
+		\begin{tikzpicture}
+			\begin{groupplot}[group style={group size=3 by 1},
+				scale=.8,
+				%width=.33\textwidth,
+				xmin=-1.1,
+				xmax=1.1,
+				ymin=-1.1,
+				ymax=1.1,
+				axis lines=middle, 
+				xticklabels={},  	% pour ne pas avoir numbers under x-axis  
+				yticklabels={},		% pour ne pas avoir numbers under y-axis
+				inner axis line style={-stealth},
+				xlabel={$x$},
+				ylabel style={yshift=8pt},
+				ylabel={$y$},
+				axis equal			% Pour avoir un repère orthonormé
+				]
+			\nextgroupplot[title=$\norm{\cdot}_1$, thick]
+				\addplot[pattern={Lines[angle=45,distance=3pt]}, pattern color=Apricot] (1,0)--(0,1)--(-1,0)--(0,-1)--cycle;
+			\nextgroupplot[title=$\norm{\cdot}_2$, xshift=-.5cm, thick]
+				\addplot[pattern={Lines[angle=45,distance=3pt]}, pattern color=blue] (0,0)circle (1);
+			\nextgroupplot[title=$\norm{\cdot}_\infty$, xshift=-.5cm, thick]
+				\addplot[pattern={Lines[angle=45,distance=3pt]}, pattern color=red] (1,1)--(-1,1)--(-1,-1)--(1,-1)--cycle;
+		\end{groupplot}				
+		\end{tikzpicture}
+		\caption{Tracé des boules unité fermées des normes standards respectivement $\norm{\cdot}_1$, $\norm{\cdot}_2$ et $\norm{\cdot}_\infty$ du plan $\ens{R}^2$}
+	\end{figure}
+		%\caption{Tracé des boules unité fermées des normes standards respectivement $\norm{\cdot}_1$, $\norm{\cdot}_2$ et $\norm{\cdot}_\infty$ de l'espace $\ens{R}^3$}
+	\begin{exo}
+	 Cherchons à déterminer et tracer la boule unité fermée de $\norm{(x,y)}=\sup\limits_{t\in \ens{R}} \abs{\grandm\frac{x+ty}{1+t^2}}$.
+	\begin{eqnarray*}
+		(x,y) \in \boulef{0_{\ens{R}^2}}{1} &\Longleftrightarrow & \norm{(x,y)-0_{\ens{R}^2}}\leq 1\\
+		&\Longleftrightarrow & \sup\limits_{t\in \ens{R}} \abs{\grandm\frac{x+ty}{1+t^2}}\leq 1\\
+		&\Longleftrightarrow & \forall t\in \ens{R}\quad \abs{\grandm\frac{x+ty}{1+t^2}}\leq 1\\
+		&\Longleftrightarrow & \forall t\in \ens{R}\quad \abs{x+ty}\leq 1+t^2\\
+		&\Longleftrightarrow & \forall t\in \ens{R}\quad -1-t^2 \leq x+ty\leq 1+t^2\\
+		&\Longleftrightarrow & \begin{cases}
+			t^2-yt+1-x\geq 0\\ t^2+yt+1+x \geq 0
+		\end{cases} \quad \forall t\in \ens{R}\\
+		(x,y) \in \boulef{0_{\ens{R}^2}}{1} &\Longleftrightarrow & \begin{cases}
+			y^2-4(1-x)\leq 0 \\ y^2-4(1+x)\leq 0
+		\end{cases}
+	\end{eqnarray*} 
+	$\boulef{0_{\ens{R}^2}}{1}$ est l'intersection de l'intérieur adhérent de deux paraboles.
+	\begin{figure}[!h]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				xmin=-5.1,
+				xmax=5.1,
+				ymin=-5.1,
+				ymax=5.1,
+				axis lines=middle, 
+				xticklabels={},  	% pour ne pas avoir numbers under x-axis  
+				yticklabels={},		% pour ne pas avoir numbers under y-axis
+				inner axis line style={-stealth},
+				xlabel={$x$},
+				ylabel style={yshift=8pt},
+				ylabel={$y$},
+				axis equal
+				]
+				%% Parabole P1 %%
+				\addplot [domain=-5:1, samples=100, name path=p1, thick, color=red!50]
+				{2*sqrt(1-x)};
+				\addplot [domain=-1:5, samples=100, name path=p2, thick, color=blue!50]
+				{2*sqrt(1+x)};
+				\addplot [domain=-5:1, samples=100, name path=p11, thick, color=red!50]
+				{-2*sqrt(1-x)};
+				\addplot [domain=-1:5, samples=100, name path=p22, thick, color=blue!50]
+				{-2*sqrt(1+x)};
+				%\addplot[red!10, opacity=0.4, domain=-1:1] fill between[of=p1 and p2];
+			\end{axis}
+		\end{tikzpicture}
+		
+		%\centering \includegraphics[scale=0.4]{../../Images/Pictures/Boule/normbizar}
+		\caption{$\boulef{0_{\ens{R}^2}}{1}$ est la partie au centre}
+	\end{figure}
+\end{exo}
+	\begin{exo} Soit $\left(X,d\right) $ un em. Soit $a\in X$. Déterminons suivant le paramètre $r\in \ens{R}^*_+$, la boule $\boule{a}{r}$ lorsque $d$ est la distance discrète sur $X$.\\
+	Soit $x\in \boule{a}{r}$, ce qui équivaut à $d(x,a)< r$.
+	\begin{itemize}
+		\item Si $ r\in \left] 1,+\infty \right[ $ alors $d(x,a) \in \left\{ 0,1\right\} $. $d$ prend toutes les valeurs qui lui sont possibles donc $x\in X$.
+		Ainsi $$ \boule{a}{r}=X $$
+		\item Si $ r\in \left] 0, 1  \right] $ alors $d(x,a)=0$ ce qui implique que $x=a$. $$\boule{a}{r}=\left\{a\right\} $$ 
+	\end{itemize}
+\end{exo}
+
+\begin{defini}[Diamètre d'un ensemble]
+Soit $A$ une partie non vide d'un espace métrique $X$.\\
+	On appelle diamètre de $A$ la borne supérieure :\[\text{diam}(A)=\sup\limits_{(x,y)\in A^2} d(x,y)  .\]
+	Par convention le diamètre de l'ensemble vide $\text{diam}(\ensvide):=0. $\\
+	$A$ est dite \textbf{bornée} si son diamètre est fini.
+\end{defini}
+
+	\begin{defini}[Distance entre deux ensembles]
+	La distance entre deux sous-ensembles $A$ et $B$ d'un espace métrique est donnée par :
+	\[d(A,B)=\inf\ensemble{d(x,y)}{\left(x,y\right)\in A\times B} \]
+		\end{defini} 
+	\subsection{Limite et Continuité}
+	\begin{defini}
+	 Soit $X$ un espace métrique et $\ell \in X$.\\
+	On dit qu'une suite $(u_n)$ à valeurs dans $X$ converge vers $\ell$  si et seulement si la suite réelle $\left(\grandm d(u_n,\ell )\right)$ converge vers $0$ i.e $\limite{n\to +\infty} d(u_n,\ell)=0$ :
+	\[\forall \varepsilon >0, \quad \exists n_0 \in \ens{N}, \quad \forall n \geq n_0 , \quad d(u_n,\ell)\leq \varepsilon  \]
+	Une suite qui n'est pas convergente est dite divergente. 
+\end{defini}
+
+\begin{defini}[Valeur d'adhérence d'une suite]
+ On dit que $\ell$ est une valeur d'adhérence de la suite $(u_n)$ s'il existe une extractrice\footnote{fonction de $\ens{N}$ dans $\ens{N}$ strictement croissante.} $\varphi$ telle que la suite extraite $(u_{\varphi(n)})$ converge vers $\ell$.\\
+	Ex: la suite $(u_n)_{n\in \ens{N}}$ définie par $u_n=(-1)^n$ a pour valeurs d'adhérences $1$ et $-1$ car \\$\limite{n\to +\infty} u_{2n}=1$ et $\limite{n\to +\infty} u_{2n+1}=-1$.
+\end{defini}
+	\subsubsection{Ouvert, Fermé, Adhérence, Intérieur}
+	\paragraph{Définitions:}
+	Soit $\left(X,d\right)$, un espace métrique.\\
+	\textbf{Ouvert:}\\Une partie $U$ de $X$ est dite ouverte si pour tout point $a$ de $U$ il existe un réel $r\in \ens{R}^*_+$ telle que la boule ouverte de centre $a$ et de rayon $r$, $\boule{a}{r}$, soit incluse dans $U$.
+	\begin{enumerate}
+		\item L'ensemble vide $\ensvide$ et l'espace $X$ tout entier sont des ouverts de $X$.
+		\item Toute réunion (finie ou dénombrable) d'ouverts est ouverte.
+		\item Toute intersection finie d'ouverts est ouverte.
+	\end{enumerate}
+	
+	
+	\textbf{Fermé :}\\
+	Une partie $F$ de $X$ est dite fermée si tout point $a$ de $F$ peut s'écrire comme limite d'une suite à valeur dans $F$.
+	On dit qu'une partie fermée est un ensemble stable par passage à la limite.
+	\begin{enumerate}
+		\item L'ensemble vide $\ensvide$ et l'espace $X$ tout entier sont des fermés de $X$.
+		\item Toute intersection (finie ou dénombrable) de fermés est fermée.
+		\item Toute réunion finie de fermés est fermée.
+	\end{enumerate}
+	(Moyen mnémotechnique: !!Trois "u": $\grandm\bigcup\limits_{n\geq 0} U_n= U$)\\
+	\underline{Remarque}:
+	Le complémentaire d'un fermé $\complement_X F$ est un ouvert et vice versa.\\
+	Attention! Un ensemble peut être ni ouvert ni fermé (par exemple les intervalles semi-ouverts).\\ 
+	
+	\textbf{Intérieur:}\\
+	Un point $x$ de $X$ est dit intérieur à la partie $A$ s'il existe une boule incluse dans $A$ de centre $x$.
+	L'intérieur d'une partie $A$ d'un espace métrique est l'ensemble des points intérieurs à $A$. On le note Int($A$) ou $\overset{\;\circ}{A}$.\\
+	On le définit également comme étant le plus grand ouvert contenu dans $A$.\\
+	En effet, une partie est ouverte si et seulement si elle est égale à son intérieur.\\
+	
+	\textbf{Adhérence:}\\ 
+	Un point $x$ est adhérent à $A$ s'il est limite d'une suite de points de $A$.
+	L'adhérence d'une partie $A$ est l'ensemble des points adhérents à $A$. On la note Adh($A$) ou $\bar{A}$.
+	On la définit également comme étant le plus petit fermé contenant $A$.\\
+	Un point $x$ est adhérent à $A$ si la distance du singleton $\lbrace x \rbrace $ à l'ensemble $A$ est nulle i.e 
+	\[d(x,A)=\inf\limits_{a\in A} d(x,a) =0\]
+	Aussi, une partie est fermée si et seulement si elle est égale à son adhérence.\\
+	L'adhérence et l'intérieur sont toutes deux idempotentes\footnote{pour tout sous-ensemble $A$ d'un espace  métrique:
+		$\overset{\,\diamond}{\overset{\,\diamond}{A}}=\overset{\,\diamond}{A}$ avec $\diamond=-$ ou $\circ$}, stables par inclusion et vérifient les propriétés duales suivantes:
+	\begin{eqnarray}
+		\overline{A\cup B}=\overline{A}\cup \overline{B} &\text{ et }& \overline{A\cap B}\subset \overline{A}\cap \overline{B}\\
+		\text{Int}\left(A\cap B \right)=\text{Int}(A)\cap \text{Int}(B) &\text{ et }& \text{Int}(A)\cup \text{Int}(B)\subset\text{Int}\left(A\cup B \right)
+	\end{eqnarray}
+	
+	\textbf{Densité:}\\
+	On dit qu'une partie $A$ d'un ensemble $B$ est \textbf{dense} dans $B$ lorsque son adhérence $\bar{A}$ est égale à $B$.\\
+	Ex: L'ensemble des rationnelles $\mathbb{Q}$ est dense dans $\ens{R}$, l'ensemble des irrationnelles $\ens{R}\backslash \ens{Q} $ est aussi dense dans $\mathbb{R}$. L'ensemble des matrices inversibles $\mathbf{GL}_n (\ens{R})$ est dense dans l'ensemble $\mathbf{M}_n(\ens{R})$.\\
+	On utilise souvent la densité pour étendre une propriété vraie sur une partie dense à tout l'ensemble. En effet, si deux fonctions continues coïncident sur une partie dense $X$ alors elles sont identiques sur $X$\\
+	
+	\textbf{Frontière:}\\ On appelle frontière d'un ensemble $A$ l'ensemble qu'on note Fr($A$) ou $\partial(A)$ défini par:\[\text{Fr}(A)=\text{Adh}(A)\backslash \text{Int}(A) .\]
+	\textbf{Voisinage:} \\On dit que l'ensemble $V$ est un voisinage du point $a$ si $V$ contient une boule ouverte de centre $a$.
+	\subsubsection{Continuité}
+	Soient $ \left(X,d\right) $ et $\left(Y,\delta\right)$ deux espaces métriques et $A$ une partie de $X$
+	\paragraph{Définition:} Une application $f : A \longrightarrow Y $ admet une limite $\ell$ au point $a$ si:
+	\[ \forall \varepsilon >0, \gesp \exists \eta >0, \gesp \forall x \in A , \quad d(x,a)\leq\eta \Longrightarrow \delta(f(x),\ell)\leq\varepsilon  \]
+	
+	\textbf{Caractérisation séquentielle de la limite: } $f$ admet une limite $\ell$ au point $a$ si: 
+	pour toute suite $(u_n)_n$ de points de $A$ qui converge vers $a$, la suite $(f(u_n))_n$ converge vers $\ell$.\\
+	Cette propriété s'utilise beaucoup plus pour montrer l'inexistence de la limite pour $f$. Puisque la propriété doit marcher pour toute suite convergente vers $a$,
+	il suffit d'en trouver deux $(u_n)$ et $(v_n)$ qui convergent vers $a$ mais pour lesquelles $(f(u_n))$ et $(f(v_n))$ n'ont pas la même limites.\\
+	Ex: Montrons que $f(x)=\sin \dfrac{1}{x}$ n'admet pas de limite en $0$.\\
+	Soient les suites $(x_n)$ et $(y_n)$ telles que $\grandm x_n=\dfrac{1}{n\pi}$ et $y_n=\dfrac{1}{2n\pi + \grandm\frac{\pi}{2}}$.\\
+	\begin{eqnarray*}
+		\grandm \limite{n\to +\infty} x_n=0 \text{ et } \grandm \limite{n\to +\infty} y_n=0. \text{ Or }f(x_n)=\sin n\pi =0 &\Rightarrow  \limite{n\to +\infty} f(x_n)=0\\
+		f(y_n)=\sin\left(2n\pi +\dfrac{\pi}{2}\right)=1 &\Rightarrow  \limite{n\to +\infty} f(y_n)=1.\\
+		\text{Comme les deux limites diffèrent alors $f$ n'admet pas de limite en 0}
+	\end{eqnarray*}
+	
+	\textbf{Application continue et morphisme d'espace métrique:}\\
+	Les applications continues sont aux espaces métriques ce que les homomorphismes sont aux groupes. Il s'agit tout simplement de transporteurs de structures, ici la structure est celle d'espace métrique.\footnote{Hélas cela est tout à fait restrictif. En toute généralité, les applications continues sont les morphismes génériques d'espaces topologiques. Les espaces métriques sont un cas particulier de ce genre d'espace lorsqu'on les munit de la topologie correspondante. Ainsi, la continuité est de base une notion qui ne réquiert pas de métrique. Juste les notions d'ouverts, de fermés, voisinage. Cependant il devient alors trop abstrait d'appréhender et de manipuler ces objets.
+		Les morphismes génériques d'espaces métriques sont pour leur part les applications uniformément continues.}
+	\par On dit que l'application $f$ de $(X,d)$ dans $(Y,\delta)$ est continue au point $a$ de $X$ si elle admet $f(a)$ comme limite en $a$.
+	\[ \forall \varepsilon >0, \gesp \exists \eta >0, \gesp \forall x \in A , \quad d(x,a)\leq\eta \Longrightarrow \delta(f(x),f(a))\leq\varepsilon   \]
+	La notion de continuité est ponctuelle. En effet, on dit que $f$ est continue sur une partie $A$ de $X$ si elle est continue en chaque point de $A$.
+	\par$f:X\longrightarrow Y$ est dite continue si (définitions équivalentes): 
+	\begin{itemize}
+		\item elle est continue sur $X$
+		\item pour tout fermé $F$ de $Y$, l'image réciproque $f^{-1}(F)$ de $F$ par $f$ est fermée
+		\item pour tout ouvert $U$ de $Y$, l'image réciproque $f^{-1}(U)$ de $U$ par $f$ est ouverte
+	\end{itemize}
+	
+	\textbf{Caractérisation séquentielle de la continuité:}  $f : (X,d) \longrightarrow (Y,\delta) $ est continue au point $a\in X$ si: 
+	pour toute suite $(u_n)_n$ de points de $X$ qui converge vers $a$, la suite $(f(u_n))_n$ converge vers $f(a)$.
+	\[ \forall (u_n)\in X^\ens{N} \big/\gesp u_n \xrightarrow[n\to +\infty]{} a\qquad \limite{n\to +\infty}f(u_n)=f\left(\limite{n\to +\infty}u_n\right)=f(a).  \]
+	Lorsque $Y=E$, un $\ens{K}$-espace vectoriel, l'ensemble des fonctions continues de $X$ dans $E$ qu'on note $\mathcal{C}(X,E)$ est un $\ens{K}$-espace vectoriel.\\
+	
+	\textbf{Applications lipschitzienne:} $f : (X,d) \longrightarrow (Y,\delta) $ est dite lipschitzienne si:
+	$$ \exists k \in \ens{R_+}, \quad\forall x,y\in X,\gesp \delta(f(x), f(y))\leq k d(x,y) $$
+	La propriété de lipschitzianité est plus forte en terme de régularité de fonction que la continuité.Toute fonction continue est lipschitzienne. La lipschitzianité s'applique sur un ensemble de points voisins, elle n'est pas ponctuelle. \\
+	Dans le cas réel, pour montrer qu'une application est lipschitzienne le plus souvent on se sert du \textbf{Théorème de l'Inégalité des Accroissements Finis(TIAF)}:
+	\par Soient $a,b$ deux nombres réels avec $a\leq b$ et $f:[a,b]\longrightarrow \ens{R}$ une fonction continue sur $[a,b]$ et dérivable sur $]a,b[$ alors:
+	\[\abs{f(a)-f(b)}\leq\abs{a-b} \sup\limits_{]a,b[ }\abs{f'}. \]
+	Si $f'$ est borné sur l'intervalle $I$ (par un nombre réel $k$ par exemple) alors $f$ est lipschitzienne sur $I$ et on a:
+	\[\forall x,y \in I\qquad\abs{f(x)-f(y)}\leq k \abs{x-y} .\]
+	On dit que $f$ est contractante si elle est $k$-lipschitzienne avec $k\in [0,1[$\\
+	
+	\textbf{Homéomorphisme:} On appelle homéomorphisme de $X$ dans $Y$, toute application\\$f:X\longrightarrow Y$ continue, bijective et de bijection réciproque $f^{-1}$ continue. Lorsqu'il existe au moins un homéomorphisme de $X$ dans $Y$, on dit que $X$ et $Y$ sont homéomorphes.
+	Il s'agit de la notion d'isomorphisme dans la catégorie d'espace topologique. On appelle propriété topologique ou un invariant topologique, une propriété d'un espace topologique qui est invariant sous les homéomorphismes. C'est-à-dire une propriété d'espaces pour laquelle si chaque fois qu'un espace $X$ possède cette propriété, chaque espace homéomorphe à $X$ possède cette propriété.\\
+	
+	\textbf{Continuité uniforme:} Il existe des fonctions pas forcément lipschitziennes mais qui sont un peu mieux que continues.
+	\par On dit que $f:(X,d)\longrightarrow (Y,\delta)$ est uniformément continue si:
+	\[ \forall \varepsilon >0, \gesp \exists \eta >0, \gesp \forall x \in X ,\gesp\forall y\in X, \quad d(x,y)\leq\eta \Longrightarrow \delta(f(x),f(y))\leq\varepsilon   \]
+	Exemples: Toutes les fonctions lipschitzienne sont uniformément continue, la fonction racine carrée sur $]0,1]$ est uniformément continue mais pas lipschitzienne.\\
+	\underline{Remarque:} Pour montrer qu'une fonction n'est pas uniformément continue sur $A$, il suffit de montrer l'existence d'un $\varepsilon_0 >0$ et de trouver deux suites $(x_n)$ et $(y_n)$ de points de $A$ tels que pour tout $n\in \ens{N}^*$
+	$$ d(x_n,y_n)\leq \frac{1}{n} \quad \text{ et } \quad \delta(f(x_n),f(y_n))\geq \varepsilon_0 $$ 
+	\subsection{Applications linéaires continues:}
+	On note $\mathcal{L}_c (E,F)$ le sous-espace vectoriel de $\mathcal{L}(E,F)$, des applications linéaires continues du $\ens{K}$-evn $E$ dans le $\ens{K}$-evn $F$. On a ainsi la définition suivante :
+	\begin{equation}
+		L\in \mathcal{L}_c (E,F) \Longleftrightarrow \exists C\geq 0,\gesp \norm{L(x)}_F\leq C\norm{x}_E \quad \gesp\forall x\in E \label{15} 
+	\end{equation}
+	\underline{Remarque:} 
+	\begin{itemize}
+		\item Toute application linéaire dont l'espace vectoriel de départ est de dimension finie est continue
+		\item Toute application linéaire continue au point $0_E$ est continue.
+	\end{itemize}
+	\par On définit sur $\mathcal{L}_c (E,F)$ une structure d'espace vectoriel normé en définissant une norme dite norme fonctionnelle définie par :
+	\[ \fonctnorm{L}:=\sup_{\substack{x\in E \\ x\neq 0_E}}  \dfrac{\norm{L(x)}_F}{\norm{x}_E}.\]
+	Il s'agit de la valeur optimale ou minimale des valeurs des "$C$" dans la définition $\eqref{15}$ i.e:
+	\[ \fonctnorm{L}=\inf\ensemble{C\in \ens{R}_+}{\norm{L(x)}_F\leq C\norm{x}_E}\qquad \forall x\in E \]
+	$$ \norm{L(x)}_F \leq \fonctnorm{L} \norm{x}_E\qquad \forall x\in E  $$
+	
+	\underline{Propriétés:}\\
+	\par Une application linéaire $L$ est continue si (définitions équivalentes):
+	\begin{itemize}
+		\item$L$ est bornée sur la sphère unité $ \sphere{0_E}{1}$
+		\item $L$ est bornée sur la boule unité fermée $ \boulef{0_E}{1}$
+		\[ \fonctnorm{L}:=\sup_{\substack{x\in E \\ x\neq 0_E}}  \dfrac{\norm{L(x)}_F}{\norm{x}_E}= \sup_{\sphere{0}{1}} \norm{L}_F=\sup_{\boulef{0}{1}} \norm{L}_F \]
+		Si $f\in \mathcal{L}_c (E,F)$ et $g\in \mathcal{L}_c (F,G)$ alors $g\circ f \in\mathcal{L}_c (E,G) $ et on a:
+		$$ \fonctnorm{g\circ f}\leq \fonctnorm{g} \fonctnorm{f} $$
+	\end{itemize}
+	\subsection{Normes équivalentes}
+	On dit que deux normes $\norm{\cdot} $ et $\norm{\cdot}'$ sur $E$ sont équivalentes si:
+	\[ \exists \alpha,\beta\in\ens{R}^*_+\qquad \forall x\in E,\quad  \alpha\norm{x}'\leq\norm{x} \leq\beta \norm{x}' \] 
+	En dimension finie, toutes les normes sont équivalentes. En effet, sur $\ens{K}^n$, on a:
+	\[ \dfrac{1}{n}\norm{x}_1\leq\norm{x}_{\infty} \leq \norm{x}_1 \quad\text{ et }\quad \dfrac{1}{\sqrt{n}}\norm{x}_2\leq\norm{x}_{\infty} \leq \norm{x}_2\]
+	En général, les espaces vectoriels normés $\left(E,\norm{\cdot}\right)$ et $\left(E,\norm{\cdot}'\right)$ sont différents. Ils n'ont pas les mêmes propriétés. L'équivalence des normes vient rectifier cela. En effet, lorsque deux normes sont équivalentes sur un espace vectoriel $E$ alors les propriétés topologiques sont conservées:
+	\begin{itemize}[label=$\bullet$]
+		\item une suite converge dans  $\left(E,\norm{\cdot}\right)$ ssi elle converge dans  $\left(E,\norm{\cdot}'\right)$
+		\item $A$ est un ouvert (resp. fermé, resp. dense) dans  $\left(E,\norm{\cdot}\right)$ ssi $A$ est un ouvert (resp. fermé, resp. dense) dans $\left(E,\norm{\cdot}'\right)$.\\
+		$(X,d)$ un em. 
+		\item $f:(X,d)\longrightarrow \left(E,\norm{\cdot}\right)$ est continue ssi $f:(X,d)\longrightarrow \left(E,\norm{\cdot}'\right)$ est continue.
+		\item $f:\left(E,\norm{\cdot}\right)\longrightarrow (X,d)$ est continue ssi  $f:\left(E,\norm{\cdot}\right)\longrightarrow (X,d) $ est continue.	 
+	\end{itemize}
+	$\norm{\cdot} $ et $\norm{\cdot}'$ sont équivalentes si:
+	\begin{equation*}
+		\begin{array}[]{rll}
+			\text{l'identité de $E$}\quad \text{id}_E: (E,\norm{\cdot}) &\longrightarrow \left(E,\norm{\cdot}'\right)\\
+			x &\longmapsto x
+		\end{array}
+	\end{equation*}
+	est un homéomorphisme.\\
+	
+	\underline{Point méthode}: Pour montrer la non-équivalence de deux normes, il suffit de trouver une suite $(x_n)$ de vecteurs de $E$ telle que:$$ \limite{n\to +\infty}\frac{\norm{x_n}}{\norm{x_n}'}=+\infty \text{ ou bien } \limite{n\to +\infty}\frac{\norm{x_n}}{\norm{x_n}'}=0$$ 
+	\subsection{Complétude:}
+	\subsubsection{Suites de Cauchy:} On dit qu'une suite est de Cauchy si elle vérifie la condition de Cauchy suivante:
+	\[  \forall \varepsilon >0, \pesp \exists N\in \ens{N}, \pesp \forall n,p \in \ens{N},\pesp n\geq N,\pesp p\geq N, \quad d(u_n,u_p)\leq\varepsilon    .\]
+	Toute suite convergente est une suite de Cauchy. La réciproque est fausse en générale.\\
+	Toute suite de Cauchy est bornée.\\
+	Toute suite de Cauchy admettant une valeur d'adhérence est convergente.
+	
+	\subsubsection{Définition et propriétés:} On appelle espace métrique complet tout espace métrique dans lequel toute suite de Cauchy y converge.
+	\par On a donc l'équivalence dans les espaces complets, entre la convergence et la cauchytude. Cependant, bien que la convergence est une propriété topologique la complétude d'un espace n'en est pas une.
+	\par \textbf{Le cas de $\ens{R}$ et de $\ens{C}$:}
+	Il s'agit des premiers espaces complets qu'on a eus à rencontrer. Bien évidemment munis de leur distance usuelle provenant des normes: valeur absolue et module. En effet, on sait que toute suite réelle ou complexe, bornée admet une suite extraite convergente: c'est le théorème de Bolzano-Weierstrass. Et puisqu'on sait, qu'en général, toute suite de Cauchy est bornée et que si elle admet une valeur adhérence elle est convergente. On a ainsi que toute suite de Cauchy réelle ou complexe est convergente d'où la complétude de $\ens{R}$ et de $\ens{C}$.
+	\par Le produit fini d'espaces complets est complet. Donc pour $n\in \ens{N}^*$, $\ens{R}^n$ et $\ens{C}^n$ sont des espaces complets.\\
+	Les espaces vectoriels normés complets sont appelés des espaces de Banach.\\
+	\underline{Exemples d'espaces de Banach}: $\ens{R}^n$, $\ens{C}^n$, l'espace préhilbertien des suites de carré sommable $\ell^2(\ens{K})$, l'espace vectoriel des suites bornées $\ell^{\infty}(\ens{K})$ muni de la norme uniforme, l'espace des fonctions réelles continues sur un segment $\mathcal{C}^0([a,b],\ens{R}) $ muni de la norme uniforme.
+	
+	\subsubsection{Lien entre la fermeture et la complétude:} Soit $X$ un em et $A\subseteq X$.\\
+	Si $A$ est complet (bien évidement vu comme un sous-em de $X$) alors c'est un fermé de $X$.\\
+	Si $X$ est complet et que $A$ est un fermé alors $A$ est aussi un espace métrique complet (avec comme distance, l'induite par celle de $X$). 
+	
+	\subsubsection{Théorème des fermés emboités:} Soient $X$ un espace métrique complet et $(F_n)_{n\in \ens{N}}\in \mathcal{P}(X)^{\ens{N}}$ une suite de parties fermées non vides de $X$, décroissantes pour l'inclusion i.e $F_{n+1} \subset F_n$ et telle que $\lim\limits_{n\to +\infty} \text{diam}(F_n)=0$.\\
+	Alors l'intersection de tous les $F_n$ est un singleton : $\grandm \text{Card}\left( \bigcap\limits_{n\geq 0} F_n\right)=1 $.
+	
+	\subsubsection{Théorème du point fixe contractant:} Soit $X$ un espace métrique complet et $f$ une application définie, contractante et stable sur $X$.\\
+	Alors:
+	\begin{enumerate}
+		\item  l'équation $f(x)=x$ admet une unique solution sur $X$ appelée point fixe de $f$ sur $X$
+		\item Toute suite $(u_n)$ de $X$ définie par récurrence comme suit : $\begin{cases}
+			u_0\in X\\ u_{n+1}=f(u_n)
+		\end{cases}$  \\converge vers le point fixe de $f$.
+	\end{enumerate}
+	\subsection{Compacité:}
+	\subsubsection{Définition et propriétés:}
+	Un espace métrique $X$ est dit compact si toute suite de cet espace possède au moins une valeur d'adhérence.\\
+	La compacité est une propriété topologique.\\
+	Tout espace métrique compact est borné.\\
+	Tout espace métrique compact est complet (La réciproque est fausse).\\
+	Dans un espace compact, $(u_n)$ est convergente équivaut à $(u_n)$ admet une unique valeur d'adhérence.\\
+	Dans un evn de dimension finie, une partie est compacte ssi elle est fermée et bornée.\\
+	Toute réunion finie de parties compactes est compacte.\\
+	Tout produit fini (ou même dénombrable) d'espaces compacts est compact. !! Le cas dénombrable est du niveau Master.\\
+	La distance entre deux parties compactes d'un même espace métrique est toujours atteinte.
+	
+	\subsubsection{Lien entre la fermeture et la compacité:} Soit $X$ un em et $A\subseteq X$.\\
+	Si $A$ est compact alors c'est un fermé de $X$.\\
+	Si $X$ est compact et que $A$ est un fermé alors $A$ est aussi un espace métrique compact.
+	
+	\subsubsection{Théorème des compacts emboités:} Soient $X$ un espace métrique et $(F_n)_{n\in \ens{N}}\in \mathcal{P}(X)^{\ens{N}}$ une suite de parties compactes non vides de $X$, décroissantes pour l'inclusion i.e $F_{n+1} \subset F_n$ et telle que $\lim\limits_{n\to +\infty} \text{diam}(F_n)=0$.\\
+	Alors l'intersection de tous les $F_n$ est non vide : $\grandm \bigcap\limits_{n\geq 0} F_n\neq \ensvide $.
+	
+	\subsubsection{Fonctions continues sur un compact:}
+	\textbf{Propriétés:}\\
+	L'image d'un espace compact par une application continue est aussi compact.\\
+	Si $f:(X,d)\longrightarrow (Y,\delta)$ est application continue bijective et si $X$ est compact alors $f$ est homéomorphisme de $X$ dans $Y$.\\
+	
+	
+	\textbf{Théorème des bornes atteintes (ou encore des valeurs extrémales):}\\
+	Soit $f:(X,d)\longrightarrow \ens{R}$ un fonction réelle continue sur l'espace métrique compact $X$.\\
+	Alors $f$ est bornée et atteint ses bornes i.e :
+	\[ \exists a,b\in X, \qquad \begin{cases}
+		\sup\limits_{x\in X} f(x)=f(a)\\\inf\limits_{x\in X} f(x)=f(b)
+	\end{cases}\]  
+	
+	
+	\textbf{Théorème de Heine:}\\
+	Il suffit qu'une application soit continue sur un compact pour qu'elle y soit uniformément continue.
+	
+	\subsection{Espace vectoriel normé de dimension finie:}
+	Dans ce paragraphe, nous donnerons une démonstration des résultats généraux concernant les espaces vectoriels normés de dimension finie.\\
+	
+	\textbf{Toutes les normes sur un $\ens{K}$-espace vectoriel de dimension finie sont équivalentes.} Pour cela, il suffit tout simplement de montrer la propriété sur $\ens{K}^n$ pour une certaine dimension $n\in \ens{N}^*$. La généralisation sur tout evn $E$ de dimension $n$ se déduit automatiquement grâce à toute application linéaire bijective de $\ens{K}^n$ sur $E$ puisque justement comme $\ens{K}^n$ et $E$ sont de dimension finie, tout isomorphisme linéaire entre ces deux espaces est un homéomorphisme. \\
+	Montrons que toute norme $N$ de $\ens{K}^n$ est équivalente à la norme uniforme $\norm{\cdot}_{\infty}$ de $\ens{K}^n$.\\
+	Soit $(e_i)_{i\in \llbracket 1,n \rrbracket}$ la base canonique de $\ens{K}^n$.
+	\begin{align*}
+		\text{ Soit } x\in \ens{K}^n, \qquad x=\somme{i=1}{n} x_i e_i &\Longrightarrow N(x) =N\left(\somme{i=1}{n} x_i e_i\right) \\
+		&\Longrightarrow N(x) \leq \somme{i=1}{n} \abs{x_i} N(e_i)\\
+		&\Longrightarrow N(x) \leq \left(\somme{i=1}{n} N(e_i)\right) \norm{x}_{\infty} \quad\text{ avec } \somme{i=1}{n} N(e_i)>0
+	\end{align*}
+	On a ainsi d'une part: $\grandm \forall x\in \ens{K}^n, \quad N(x)\leq \beta \norm{x}_\infty$ où $\grandm \beta:=\somme{i=1}{n} N(e_i)$.\\
+	Considérons maintenant $N$ comme une application de l'espace métrique $(\ens{K}^n,\norm{\cdot}_{\infty})$ dans $\ens{R}$ muni de la valeur absolue. De l'inégalité précédente, on déduit que $N$ est $\beta$-lipschitzienne, elle est donc continue et particulièrement continue sur la sphère unité. La sphère unité étant fermée et bornée, elle est donc un compact de $\ens{K}^n$. D'après le théorème des bornes atteintes, $N$ atteint ses bornes sur $\sphere{0}{1}$ Donc: $\exists a\in \sphere{0}{1},\, N(a)=\inf\limits_{\sphere{0}{1}} N$ tel que $ \forall y\in \sphere{0}{1}, \quad N(y)\geq N(a)>0 $. Notons-le $\alpha$ cet infimum.  On a ainsi: $$\grandm\forall x\neq 0_{\ens{K}^n} \quad y=\frac{x}{\norm{x}_{\infty}} \in \sphere{0_{\ens{K}^n}}{1},\quad N\left(\dfrac{x}{\norm{x}_{\infty}}\right)\geq \alpha \Longrightarrow N(x)\geq \alpha \norm{x}_{\infty}$$ 
+	La dernière inégalité reste trivialement vraie pour $x=0_{\ens{K}^n}$.\\
+	D'où: 
+	\[ \exists \alpha,\beta\in\ens{R}^*_+\qquad \forall x\in \ens{K}^n ,\quad  \alpha\norm{x}_{\infty}\leq N(x) \leq\beta \norm{x}_{\infty} \] 
+	et l'équivalence de $N$ avec $\norm{\cdot}_{\infty}$.\\
+	
+	\textbf{Toute application linéaire définie sur un evn de dimension finie est continue.}\\
+	Soit $f\in \mathcal{L}(E,F)$ avec $E$ un espace vectoriel de dimension finie. Munissons-le de la norme uniforme.\\
+	\begin{align*}
+		\forall x\in E \quad  \norm{f(x)}_F = \norm{f\left(\somme{i=1}{n} x_i e_i\right)}_F&=\norm{\somme{i=1}{n} x_i f(e_i)}_F\\
+		&\leq \somme{i=1}{n} \abs{x_i}\norm{f(e_i)}_F\\
+		&\leq \left(\somme{i=1}{n} \norm{f(e_i)}_F\right) \norm{x}_{\infty}\qquad \text{car } \forall i\in\llbracket 1, n \rrbracket, \, \abs{x_i}\leq \norm{x}_{\infty} \\
+		\forall x\in E \quad  \norm{f(x)}_F &\leq C\norm{x}_{\infty} \qquad \text{avec } C:=\somme{i=1}{n} \norm{f(e_i)}_F.										
+	\end{align*}	
+	
+	\textbf{Théorème de compacité de Riesz:}\\
+	Un espace vectoriel normé est de dimension finie si et seulement si sa boule unité fermée est un compact.
+	\subsection*{Normes matricielles}
+	On appelle norme matricielle toute norme définie sur l'espace vectoriel des matrices et qui est sous-multiplicative i.e vérifiant pour tout $A$ et $B$ des matrices, la propriété: $\norm{AB}\leq \norm{A} \norm{B}$.\\
+	Une façon de définir une norme matricielle pour une matrice $A\in \mathbf{M}_{n,p}(\ens{K}) $ est de la définir comme étant égale à la norme fonctionnelle de l'application linéaire de $\mathcal{L}_{\ens{K}} \left(\ens{K}^n,\ens{K}^p \right) $ admettant canoniquement $A$ comme matrice représentative:
+	\[\fonctnorm{A}:=\sup_{\substack{x\in \ens{K}^n \\ x\neq 0}}\frac{\norm{AX}_{\ens{K}^p}}{\norm{X}_{\ens{K}^n}} \]
+	Cette norme matricielle est appelée \textbf{norme subordonnée aux normes $\norm{\cdot}_{\ens{K}^n}$ et $\norm{\cdot}_{\ens{K}^p}$}.\\
+	A titre d'exercice, on cherchera à déterminer une expression de chacune des normes sur l'espace des matrices carrées de taille $n$ subordonnées aux 3 normes standards de $\ens{K}^n$.\\
+	
+	\textbf{Norme subordonnée à la norme $\norm{\cdot}_1$:}\\
+	Soient $A=(a_{ij})\in \mathbf{M}_n (\ens{K})$ et $f$ l'endomorphisme canoniquement associé à $A$.\\
+	Pour tout $\grandm x\in \ens{K}^n, \quad f(x)=\left(f_1 (x), \dots, f_n (x) \right)$ avec $\grandm \forall i\in \llbracket 1,n \rrbracket, \quad f_i (x)=\somme{j=1}{n} a_{ij} x_j$.
+	\begin{align*}
+		\norm{f(x)}_1 = \somme{i=1}{n}\abs{f_i (x)} =\somme{i=1}{n} \abs{\somme{j=1}{n}a_{ij} x_j } &\leq \somme{i=1}{n}\somme{j=1}{n}\abs{a_{ij}}\abs{x_j}\\
+		&\leq \somme{j=1}{n}\left[ \abs{x_j}\cdot\somme{i=1}{n}\abs{a_{ij}} \right]\\
+		&\leq \somme{j=1}{n}\left[ \abs{x_j}\cdot\max_{j\in\llbracket 1,n \rrbracket}\left(\somme{i=1}{n}\abs{a_{ij}}\right) \right]\\
+		&\leq \left(\somme{j=1}{n} \abs{x_j}\right) \max_{j\in\llbracket 1,n \rrbracket}\left(\somme{i=1}{n}\abs{a_{ij}}\right)\\
+		\norm{f(x)}_1	&\leq \norm{x}_1 \max_{j\in\llbracket 1,n \rrbracket} \norm{C_j}_1 \quad\text{ avec $C_j$ désignant la j-ième colonne de $A$ } 
+	\end{align*}
+	On a ainsi d'une part, par définition de la norme fonctionnelle: $\grandm\fonctnorm{A}_1 \leq \max\limits_{j\in\llbracket 1,n \rrbracket} \norm{C_j}_1$.\\
+	Puisqu'il s'agit d'un maximum alors il existe $j_0\in\llbracket 1,n \rrbracket$ tel que $\max\limits_{j\in\llbracket 1,n \rrbracket}\norm{C_j}_1 =\norm{C_{j_0}}_1$. Soit $e_{j_0}$ le vecteur de la base canonique qui vaut $1$ en sa $j_{0}$-ième composante et $0$ ailleurs. Sa norme est non nul, elle vaut 1 et celle de son image:
+	$$\norm{f(e_{j_0})}_1 =\somme{i=1}{n} \abs{\somme{j=1}{n}a_{ij} x_j }=\somme{i=1}{n} \abs{a_{i{j_0}} x_{j_0} }=\somme{i=1}{n} \abs{a_{i{j_0}}  }=\norm{C_{j_0}}_1 $$
+	Donc on a :
+	$$ \fonctnorm{A}_1 :=\sup_{\substack{x\in \ens{K}^n \\ x\neq 0}} \frac{\norm{f(x)}_1}{\norm{x}_1} \geq \frac{\norm{f(e_{j_0})}_1}{\norm{e_{j_0}}_1}=\max_{j\in\llbracket 1,n \rrbracket} \norm{C_j}_1 $$
+	
+	D'où: $$ \fonctnorm{A}_1=\max_{j\in\llbracket 1,n \rrbracket} \norm{C_j}_1$$
+	
+	\textbf{Norme subordonnée à la norme $\norm{\cdot}_{\infty}$:}\begin{align*}
+		\forall x\in \ens{K}^n,\quad\norm{f(x)}_{\infty}&=\max_{i\in\llbracket 1,n \rrbracket} \abs{f_i (x)}\\
+		&= \max_{i\in\llbracket 1,n \rrbracket} \abs{\somme{j=1}{n} a_{ij} x_j}\\
+		&\leq \max_{i\in\llbracket 1,n \rrbracket}\left(\somme{j=1}{n} \abs{a_{ij}}\abs{x_j}\right)
+		\text{ Or } \forall j\in\llbracket 1,n \rrbracket, \quad \abs{x_j}\leq \norm{x}_{\infty}\\
+		&\leq \max_{i\in\llbracket 1,n \rrbracket}\left(\somme{j=1}{n}\abs{a_{ij}} \norm{x}_{\infty}\right)\\
+		\forall x\in \ens{K}^n,\quad  \norm{f(x)}_{\infty} &\leq \norm{x}_{\infty}\cdot\max_{i\in\llbracket 1,n \rrbracket}\left(\somme{j=1}{n}\abs{a_{ij}}\right)			 
+	\end{align*}
+	Donc $$\fonctnorm{A}_{\infty}\leq \max_{i\in\llbracket 1,n \rrbracket} \norm{L_i}_1 \qquad\text{ en posant } \norm{L_i}:=\somme{j=1}{n}\abs{a_{ij}}.$$
+	Soit $x$ un vecteur de $\ens{K}^n$ dont les composantes $x_j$ sont définies telles que $x_{j}= \begin{cases}
+		0 & \text{si } a_{ij}=0\\
+		\dfrac{\overline{a_{ij}}}{\abs{a_{ij}}} & \text{si } a_{ij}\neq 0.
+	\end{cases}$
+	Il est assez clair que $x$ est unitaire, pour la norme infini (ou norme sup), et que la norme de son image par $f$ vaut exactement $\norm{f(x)}_{\infty}=\max_{i\in\llbracket 1,n \rrbracket}\left(\somme{j=1}{n}\abs{a_{ij}}\right)=\max_{i\in\llbracket 1,n \rrbracket} \norm{L_i}_1$. Ainsi, le majorant qu'on vient de trouver est atteint d'où : $$\fonctnorm{A}_{\infty}=\max_{i\in\llbracket 1,n \rrbracket}\norm{L_i}_1$$
+	
+	\textbf{Norme subordonnée à la norme euclidienne i.e $\norm{\cdot}_2$ :} \\
+	Pour cette norme, nous aurions besoin de quelques résultats d'algèbre linéaire voire même bilinéaire. En effet, nous montrerons d'abord que pour toute matrice carrée $A\in \mathbf{M}_n (\ens{K})$, la matrice définie par $A^*A$ est auto-adjointe (ou hermitienne) \footnote{On appelle adjointe de la matrice $A$, la matrice qu'on note $A^*=\overline{\transp{A}}$. On dit d'une matrice $A$ qu'elle est auto-adjointe lorsqu'elle est égale à son adjointe i.e $A^*=A$. On voit bien que la notion de transposée et de matrice symétrique dans $\ens{R}$ n'est autre qu'une particularité de l'adjonction et des matrices autoadjointes.} positive ayant des valeurs propres réels positives et que pour toute matrice $H$ hermitienne, on a:
+	$$ \sup_{\norm{x}=1} \prdtscal{Hx}{x}=\sup\left(\text{sp}(H)\right). $$
+	Le produit scalaire dans l'expression est réel, respectivement hermitien, selon que la matrice $H$ est considérée comme à coefficients réels, respectivement complexes.\footnote{Une généralisation dans le cas complexe des formes bilinéaires de la structure de $\ens{R}$-espace vectoriel est celle des formes sesquilinéaires. Étant donné une matrice complexe $M$ on sait lui associer une forme sesquilinéaire $\varphi$ définie par $\varphi (x, y)= \overline{\transp{x}}My$  }.\\
+	Il est clair que la matrice $A^*A$ est hermitienne puisque $(A^*A)^*=A^* (A^*)^*= A^* A.$ Dire que $H$ est positive revient à dire que $\varphi_H$, la forme sesquilinéaire associée à $H$, est positive i.e $\varphi_H (x,x)\geq 0\quad \forall x\in\ens{K}^n$.\\
+	Ainsi $\varphi_H (x,x)=\overline{\transp{x}}Hx=\overline{\transp{x}}\pesp\overline{\transp{A}}Ax=\overline{\transp{Ax}}Ax=\prdtscal{Ax}{Ax}\geq0$ car le produit scalaire canonique est positif. Grâce au théorème spectrale on sait que pour une matrice hermitienne $H$, son spectre $\text{sp}_{\ens{K}}(H)\subset \ens{R}$. Montrons donc que si $H$ est positive alors $\text{sp}_{\ens{K}}(H)\subset \ens{R}^+$. \\
+	Soient $\lambda\in\text{sp}_{\ens{K}}(H)$ et $x$ un vecteur propre associé à $\lambda$.
+	\begin{align*}
+		\prdtscal{Hx}{x}=\prdtscal{\lambda x}{x} &\Longleftrightarrow \overline{\transp{(Hx)}}x=\overline{\lambda}\prdtscal{x}{x}\\
+		&\Longleftrightarrow\overline{\transp{x}}\pesp\overline{\transp{H}}x = \lambda\prdtscal{x}{x}&\text{ car $\lambda\in \ens{R}$ }\\
+		&\Longleftrightarrow\overline{\transp{x}}Hx = \lambda\prdtscal{x}{x}&\text{ car $H$ est hermitienne }\\
+		&\Longleftrightarrow\varphi_H(x,x)=\lambda\prdtscal{x}{x}\\
+		&\Longrightarrow \lambda\in \ens{R}^+ &\text{ car $\varphi_H$ et $\prdtscal{\cdot}{\cdot}$ sont positifs. }
+	\end{align*}
+	D'où $\text{sp}_{\ens{K}}(H)\subset \ens{R}^+$.\\
+	Soit $x$ un vecteur de la sphère unité. Le théorème spectrale énonce que les matrices hermitiennes sont toutes diagonalisables en des bases orthonormales de vecteurs propres et leurs valeurs propres sont réels. Plaçons nous alors dans une telle base. Le produit scalaire $\prdtscal{Hx}{x}$ reste le même dans la nouvelle base puisque celui-ci est invariant par changement de base orthonormale. Ainsi 
+	\begin{align*}
+		\prdtscal{Hx}{x}=&\prdtscal{Dy}{y} \text{ où $y$ est le répresentant de $x$ dans le nouvelle base et $\begin{cases}
+				D\in \mathbf{Diag}_n(\ens{R})\\
+				D\sim H
+			\end{cases}$ }\\
+		=&  \pesp\transp{\overline{\left[ 
+				\begin{pmatrix}
+					\lambda_1& \dots & 0\\
+					\vdots   & \ddots& \vdots\\
+					0        &\dots  & \lambda_n	
+				\end{pmatrix} \begin{pmatrix}
+					y_1\\ \vdots\\ y_n
+				\end{pmatrix} \right]}}
+		\begin{pmatrix}
+			y_1\\ \vdots\\ y_n
+		\end{pmatrix}\\
+		=& \begin{pmatrix}
+			\lambda_1 \overline{y_1}& \dots& \lambda_n \overline{y_n}
+		\end{pmatrix}\begin{pmatrix}
+			y_1\\ \vdots\\ y_n
+		\end{pmatrix}\\
+		\prdtscal{Hx}{x}=&\somme{i=0}{n} \lambda_i \overline{y_i}y_i\leq\sup\left(\text{sp}(H)\right) \somme{i=0}{n}\abs{y_i}^2 .
+	\end{align*}
+	L'on peut se convaincre que le vecteur $y$ reste dans la sphère unité donc $\grandm \somme{i=0}{n}\abs{y_i}^2=1$ et ce qui donne $\prdtscal{Hx}{x}\leq\sup\left(\text{sp}(H)\right)\quad \forall x \in \sphere{0}{1}$. Prenons $x=e$, le vecteur propre de la base orthonormale, associé à la valeur propre maximale. On a alors $\prdtscal{He}{e}=\grandm (\max_i \lambda_i)\prdtscal{e}{e}=\max_i \lambda_i$. Ainsi le supremum est bien atteint sur $\sphere{0}{1}$ et on a:$$ \sup_{\norm{x}=1} \prdtscal{Hx}{x}=\rho(H) \quad\text{ avec $\rho(H)=\sup\left(\text{sp}(H)\right)$} \footnote{$\grandm\rho(M):=\max_{\lambda\in \text{sp}_\ens{C} M} \abs{\lambda}$ est appelé rayon spectrale de la matrice $M$}  . $$ 
+	La norme matricielle subordonnée à celle euclidienne d'une matrice $A\in \mathbf{M}_n(\ens{K})$ vaut alors :
+	$$\fonctnorm{A}_2=\sup_{\norm{x}=1} \norm{Ax}=\sup_{\norm{x}=1} \sqrt{\prdtscal{Ax}{Ax}}=\sqrt{\sup_{\norm{x}=1}\prdtscal{A^*Ax}{x}}=\sqrt{\rho\left(A^*A\right)}$$
+	\centering\underline{\textbf{Récapitulatif}}
+	\begin{equation*}
+		\setlength{\fboxrule}{0.45mm}
+		\boxed{\begin{array}{l}
+				\grandm\fonctnorm{A}_1=\max_{j\in\llbracket 1,n \rrbracket}\somme{i=1}{n}\abs{a_{ij}}=\max_{j\in\llbracket 1,n \rrbracket} \norm{C_j}_1\\
+				\grandm\fonctnorm{A}_{\infty}=\max_{i\in\llbracket 1,n \rrbracket}\somme{j=1}{n}\abs{a_{ij}}=\max_{i\in\llbracket 1,n \rrbracket}\norm{L_i}_1\\
+				\grandm\fonctnorm{A}_2=\sqrt{\sup\left(\text{sp}(A^*A)\right)}=\sqrt{\rho\left(A^*A\right)}
+		\end{array}}
+	\end{equation*}
+\end{document}
+
